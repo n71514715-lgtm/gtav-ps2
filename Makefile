@@ -1,5 +1,5 @@
 CC = ee-gcc
-CFLAGS = -D_EE -O2 -G0 -Wall \
+CFLAGS = -D_EE -O3 -G0 -Wall \
          -I$(PS2SDK)/ee/include \
          -I$(PS2SDK)/common/include \
          -I$(PS2SDK)/ports/include \
