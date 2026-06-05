@@ -217,7 +217,7 @@ int main(void)
         uint8_t sg=(uint8_t)(40*day+4);
         uint8_t sb=(uint8_t)(60*day+10);
 
-        gsKit_clear(gs,GS_SETREG_RGBAQ(sr,sg,sb,0,0));
+        gsKit_clear(gs,GS_SETREG_RGBAQ(sr,sg,sb,128,0));
 
         /* Horizon */
         hud(0,195,640,225,(uint8_t)(170*day),(uint8_t)(120*day),40);
