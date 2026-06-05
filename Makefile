@@ -7,7 +7,7 @@ CFLAGS = -D_EE -O2 -G0 -Wall \
 LDFLAGS = -L$(PS2SDK)/ee/lib \
           -L$(PS2SDK)/ports/lib \
           -L/usr/local/ps2dev/gsKit/lib \
-          -lgskit -ldmakit -lc -lkernel
+          -lgskit -ldmakit -lpadx -lpad -lc -lkernel
 
 SRC = src/engine/main.c
 OBJ = $(SRC:.c=.o)
