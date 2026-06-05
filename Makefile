@@ -3,13 +3,21 @@ CFLAGS = -D_EE -O3 -G0 -Wall \
          -I$(PS2SDK)/ee/include \
          -I$(PS2SDK)/common/include \
          -I$(PS2SDK)/ports/include \
-         -I/usr/local/ps2dev/gsKit/include
+         -I/usr/local/ps2dev/gsKit/include \
+         -Isrc
+
 LDFLAGS = -L$(PS2SDK)/ee/lib \
           -L$(PS2SDK)/ports/lib \
           -L/usr/local/ps2dev/gsKit/lib \
-          -lgskit -ldmakit -lpadx -lpad -lc -lkernel
+          -lgskit -ldmakit \
+          -lpacket2 -ldraw \
+          -lpadx -lpad \
+          -lmath3d -lgraph -ldma \
+          -lc -lkernel
 
-SRC = src/engine/main.c
+SRC = src/engine/main.c \
+      src/renderer/vu1.c
+
 OBJ = $(SRC:.c=.o)
 
 all: gtav.elf
