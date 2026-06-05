@@ -16,6 +16,7 @@ LDFLAGS = -L$(PS2SDK)/ee/lib \
           -lc -lkernel
 
 SRC = src/engine/main.c \
+      src/gameplay/collision.c \
       src/renderer/vu1.c
 
 OBJ = $(SRC:.c=.o)

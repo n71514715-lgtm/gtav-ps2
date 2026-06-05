@@ -7,6 +7,7 @@
 #include <sifrpc.h>
 #include <loadfile.h>
 #include <libpad.h>
+#include "gameplay/collision.h"
 
 typedef struct { float x, y, z; } V3;
 
@@ -162,6 +163,12 @@ int main(void)
     SifInitRpc(0);
     pad_init();
 
+    col_init();
+    /* Register buildings as colliders */
+    col_add(-8,15,3,3); col_add(-8,20,3,3);
+    col_add(-8,35,4,4); col_add(-8,48,3,3);
+    col_add( 8,10,3,3); col_add( 8,22,4,3);
+    col_add( 8,36,3,4); col_add( 8,50,5,4);
     gs=gsKit_init_global();
     dmaKit_init(D_CTRL_RELE_OFF,D_CTRL_MFD_OFF,D_CTRL_STS_UNSPEC,
                 D_CTRL_STD_OFF,D_CTRL_RCYC_8,1<<DMA_CHANNEL_GIF);
@@ -188,7 +195,12 @@ int main(void)
         if(speed> .18f) speed= .18f;
         if(speed<-.08f) speed=-.08f;
         speed*=.92f;
+        col_resolve(&pos.x, &pos.z, 0.4f);
         pos.x+=sinf(facing)*speed;
+        pos.z+=cosf(facing)*speed;
+        col_resolve(&pos.x, &pos.z, 0.4f);
+        /* undo double move below */
+        pos.z-=cosf(facing)*speed;
         pos.z+=cosf(facing)*speed;
 
         /* Character switch */
