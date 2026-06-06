@@ -78,20 +78,12 @@ static void quad(V3 a,V3 b,V3 c,V3 d,
 
 /* ── Buildings ───────────────────────────────────────────── */
 typedef struct{float x,z,w,h,d;uint8_t r,g,b;}Bld;
-#define NB 16
-static Bld blds[NB]={
-    {-8,10,3,8,3,80,75,70},{-8,20,3,12,3,90,85,80},
-    {-8,35,4,6,4,70,70,75},{-8,48,3,10,3,85,80,75},
-    {-8,62,5,14,4,75,72,68},{-8,80,3,7,3,88,83,78},
-    {-8,95,4,10,3,80,76,72},{-8,110,3,13,3,86,82,77},
-    {8,10,3,6,3,78,74,70},{8,22,4,10,3,92,87,82},
-    {8,36,3,8,4,72,68,65},{8,50,5,15,4,86,80,76},
-    {8,65,3,9,3,76,73,69},{8,82,4,11,3,89,84,79},
-    {8,97,3,7,3,82,78,74},{8,112,5,14,4,91,86,81},
-};
+#include "world/map_data.h"
+#define NB NUM_REAL_BUILDINGS
+static Bld *blds = real_buildings;
 
 static void draw_bld(Bld *b,float loop){
-    float bx=b->x,bz=b->z+loop,by=b->h;
+    float bx=b->x,bz=b->z,by=b->h;
     float hw=b->w*.5f,hd=b->d*.5f;
     quad((V3){bx-hw,0,bz-hd},(V3){bx+hw,0,bz-hd},
          (V3){bx+hw,by,bz-hd},(V3){bx-hw,by,bz-hd},
@@ -178,7 +170,7 @@ int main(void)
     gsKit_init_screen(gs);
     gsKit_mode_switch(gs,GS_PERSISTENT);
 
-    V3    pos={0,0,5};
+    V3    pos={-255.0f, 0, -7.5f};
     float facing=0,speed=0;
     int   inCar=0,wanted=0,health=100;
     int   chr=0,switchTimer=0,frame=0;
@@ -246,7 +238,7 @@ int main(void)
             }
 
         /* Buildings */
-        float loop=(float)((int)(s_cam.z/120))*120.f;
+        float loop=0;// real coords dont loop
         for(int i=0;i<NB;i++) draw_bld(&blds[i],loop);
 
         /* Road lines */
